@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/cart/cart_bloc.dart';
 import '../models/product_model.dart';
 
 class CartProductCard extends StatelessWidget {
@@ -40,17 +42,40 @@ class CartProductCard extends StatelessWidget {
           const SizedBox(
             width: 10.0,
           ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.remove_circle)),
-              Text(
-                "0",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle))
-            ],
-          )
+          BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+            return Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      context
+                          .read<CartBloc>()
+                          .add(CartRemovedProductEvent(productModel));
+
+                      const snackBar =
+                          SnackBar(content: Text("Removed to your cart!"));
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    icon: const Icon(Icons.remove_circle)),
+                Text(
+                  "1",
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                IconButton(
+                    onPressed: () {
+                      context
+                          .read<CartBloc>()
+                          .add(CartAddedProductEvent(productModel));
+
+                      const snackBar =
+                          SnackBar(content: Text("Added to your cart!"));
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    icon: const Icon(Icons.add_circle))
+              ],
+            );
+          })
         ],
       ),
     );

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/cart/cart_bloc.dart';
 import '../../bloc/wishlist_bloc.dart';
 import '../../models/product_model.dart';
+import '../../config/custom_app_route.dart';
 import '../../widgets/custom_app_bar_widget.dart';
 import '../../widgets/hero_carousel_card_widget.dart';
 
@@ -48,13 +50,26 @@ class ProductScreen extends StatelessWidget {
                   ),
                 );
               }),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.white),
-                  onPressed: () {},
-                  child: Text("ADD TO CART",
-                      style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Colors.black,
-                          )))
+              BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+                return ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.white),
+                    onPressed: () {
+                      context
+                          .read<CartBloc>()
+                          .add(CartAddedProductEvent(productModel));
+
+                      const snackBar =
+                          SnackBar(content: Text("Added to your cart!"));
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      Navigator.pushNamed(context, CustomAppRoute.cartScreen);
+                    },
+                    child: Text("ADD TO CART",
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                              color: Colors.black,
+                            )));
+              })
             ],
           ),
         ),

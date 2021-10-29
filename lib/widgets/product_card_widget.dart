@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/wishlist_bloc.dart';
+import '../bloc/cart/cart_bloc.dart';
 import '../models/product_model.dart';
 import '../config/custom_app_route.dart';
 
@@ -80,11 +81,24 @@ class ProductCardWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Expanded(
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.add_circle,
-                                  color: Colors.white))),
+                      BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) {
+                        return Expanded(
+                            child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<CartBloc>()
+                                      .add(CartAddedProductEvent(productModel));
+
+                                  const snackBar = SnackBar(
+                                      content: Text("Added to your cart!"));
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                },
+                                icon: const Icon(Icons.add_circle,
+                                    color: Colors.white)));
+                      }),
                       isWishlist
                           ? BlocBuilder<WishlistBloc, WishlistState>(
                               builder: (context, state) {
