@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 
 class CategoryModel extends Equatable {
   final String name;
@@ -24,4 +24,11 @@ class CategoryModel extends Equatable {
         imageUrl:
             "https://images.unsplash.com/photo-1563374928-66e57628d1b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"),
   ];
+
+  static CategoryModel fromSnapshot(DocumentSnapshot snapshot) {
+    CategoryModel categoryModel =
+        CategoryModel(name: snapshot["name"], imageUrl: snapshot["imageUrl"]);
+
+    return categoryModel;
+  }
 }

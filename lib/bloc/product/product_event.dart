@@ -1,0 +1,19 @@
+part of 'product_bloc.dart';
+
+abstract class ProductEvent extends Equatable {
+  const ProductEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoadProductEvent extends ProductEvent {}
+
+class UpdateProductEvent extends ProductEvent {
+  final List<ProductModel> products;
+
+  const UpdateProductEvent({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}
