@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/bloc/category/category_bloc.dart';
+import 'package:e_commerce_app/bloc/checkout/checkout_bloc.dart';
 import 'package:e_commerce_app/bloc/product/product_bloc.dart';
 import 'package:e_commerce_app/repositories/category/category_repository.dart';
+import 'package:e_commerce_app/repositories/checkout/checkout_repository.dart';
 import 'package:e_commerce_app/repositories/product/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +36,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (_) => ProductBloc(productRepository: ProductRepository())
                 ..add(LoadProductEvent())),
+          BlocProvider(
+              create: (context) => CheckoutBloc(
+                  cartBloc: context.read<CartBloc>(),
+                  checkoutRepository: CheckoutRepository())),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
