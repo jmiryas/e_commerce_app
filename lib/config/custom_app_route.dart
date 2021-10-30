@@ -9,6 +9,7 @@ class CustomAppRoute {
   static const String splashScreen = "/splash";
   static const String catalogScreen = "/catalog";
   static const String productScreen = "/product";
+  static const String checkoutScreen = "/checkout";
   static const String wishlistScreen = "/wishlist";
 
   // * Go to route:

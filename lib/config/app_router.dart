@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/screens/checkout/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/product_model.dart';
@@ -38,6 +39,9 @@ class AppRouter {
       case CustomAppRoute.splashScreen:
         return CustomAppRoute.goToRoute(
             const SplashScreen(), CustomAppRoute.splashScreen);
+      case CustomAppRoute.checkoutScreen:
+        return CustomAppRoute.goToRoute(
+            const CheckoutScreen(), CustomAppRoute.checkoutScreen);
       default:
         return CustomAppRoute.goToRoute(
             const ErrorScreen(), CustomAppRoute.errorScreen);
