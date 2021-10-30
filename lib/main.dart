@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           title: "E-commerce App",
           theme: themeData(),
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: CustomAppRoute.homeScreen,
+          initialRoute: CustomAppRoute.splashScreen,
         ));
   }
 }

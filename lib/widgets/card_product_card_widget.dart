@@ -6,8 +6,10 @@ import '../models/product_model.dart';
 
 class CartProductCard extends StatelessWidget {
   final ProductModel productModel;
+  final int quantity;
 
-  const CartProductCard({Key? key, required this.productModel})
+  const CartProductCard(
+      {Key? key, required this.productModel, required this.quantity})
       : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class CartProductCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               Text(
-                "\$${productModel.price}",
+                "Rp ${productModel.price}",
                 style: Theme.of(context).textTheme.headline6,
               )
             ],
@@ -58,7 +60,7 @@ class CartProductCard extends StatelessWidget {
                     },
                     icon: const Icon(Icons.remove_circle)),
                 Text(
-                  "1",
+                  "$quantity",
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 IconButton(

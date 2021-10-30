@@ -33,19 +33,20 @@ class CartScreen extends StatelessWidget {
       ),
       body: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
         if (state is CartLoadingState) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
         if (state is CartLoadedState) {
           if (state.cart.products.isEmpty) {
-            return Center(
+            return const Center(
               child: Text("Cart is empty ..."),
             );
           } else {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -57,7 +58,7 @@ class CartScreen extends StatelessWidget {
                               child: SizedBox(
                             width: 100.0,
                             child: Text(
-                              "Add \$20.0 for FREE DELIVERY",
+                              state.cart.freeDeliveryString,
                               style: Theme.of(context).textTheme.headline5,
                             ),
                           )),
@@ -77,16 +78,26 @@ class CartScreen extends StatelessWidget {
                               ))
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                       SizedBox(
                         height: 230.0,
                         child: ListView.builder(
-                            itemCount: state.cart.products.length,
+                            itemCount: state.cart
+                                .productQuantity(state.cart.products)
+                                .keys
+                                .length,
                             itemBuilder: (context, index) {
                               return CartProductCard(
-                                productModel: state.cart.products[index],
+                                productModel: state.cart
+                                    .productQuantity(state.cart.products)
+                                    .keys
+                                    .elementAt(index),
+                                quantity: state.cart
+                                    .productQuantity(state.cart.products)
+                                    .values
+                                    .elementAt(index),
                               );
                             }),
                       )
@@ -94,11 +105,11 @@ class CartScreen extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Divider(
+                      const Divider(
                         thickness: 2,
                       ),
                       Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 40.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 40.0),
                           child: Column(
                             children: [
                               Row(
@@ -111,13 +122,13 @@ class CartScreen extends StatelessWidget {
                                         Theme.of(context).textTheme.headline5,
                                   ),
                                   Text(
-                                    "\$5.0",
+                                    "Rp ${state.cart.subtotalString}",
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10.0,
                               ),
                               Row(
@@ -130,7 +141,7 @@ class CartScreen extends StatelessWidget {
                                         Theme.of(context).textTheme.headline5,
                                   ),
                                   Text(
-                                    "\$15000.0",
+                                    "Rp ${state.cart.deliveryFeeString}",
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                   )
@@ -138,7 +149,7 @@ class CartScreen extends StatelessWidget {
                               )
                             ],
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                       Stack(
@@ -149,12 +160,14 @@ class CartScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.black.withAlpha(50))),
                           Container(
-                            margin: EdgeInsets.all(5.0),
+                            margin: const EdgeInsets.all(5.0),
                             width: MediaQuery.of(context).size.width,
                             height: 50.0,
-                            decoration: BoxDecoration(color: Colors.black),
+                            decoration:
+                                const BoxDecoration(color: Colors.black),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 40.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -167,7 +180,7 @@ class CartScreen extends StatelessWidget {
                                         .copyWith(color: Colors.white),
                                   ),
                                   Text(
-                                    "\$15.0",
+                                    "Rp ${state.cart.totalString}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline5!
@@ -187,7 +200,7 @@ class CartScreen extends StatelessWidget {
           }
         }
 
-        return Center(
+        return const Center(
           child: Text("Something went wrong!"),
         );
       }),

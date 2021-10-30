@@ -6,6 +6,7 @@ class CustomAppRoute {
   static const String homeScreen = "/";
   static const String cartScreen = "/cart";
   static const String errorScreen = "/error";
+  static const String splashScreen = "/splash";
   static const String catalogScreen = "/catalog";
   static const String productScreen = "/product";
   static const String wishlistScreen = "/wishlist";

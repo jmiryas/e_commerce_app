@@ -23,12 +23,26 @@ class CartModel extends Equatable {
   }
 
   String freeDelivery(double subtotal) {
-    if (subtotal >= 30.0) {
+    if (subtotal >= 400000.0) {
       return "You have FREE DELIVERY";
     } else {
-      double missing = 30.0 - subtotal;
-      return "Add \$${missing.toStringAsFixed(2)} for FREE DELIVERY";
+      double missing = 400000.0 - subtotal;
+      return "Add Rp ${missing.toStringAsFixed(2)} for FREE DELIVERY";
     }
+  }
+
+  Map productQuantity(List<ProductModel> products) {
+    var quantity = {};
+
+    for (var item in products) {
+      if (!quantity.containsKey(item)) {
+        quantity[item] = 1;
+      } else {
+        quantity[item] += 1;
+      }
+    }
+
+    return quantity;
   }
 
   String get subtotalString => subtotal.toStringAsFixed(2);
