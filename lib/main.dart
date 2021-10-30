@@ -1,13 +1,16 @@
-import 'package:e_commerce_app/bloc/cart/cart_bloc.dart';
-import 'package:e_commerce_app/bloc/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../config/theme.dart';
 import '../config/app_router.dart';
+import '../bloc/wishlist_bloc.dart';
+import '../bloc/cart/cart_bloc.dart';
 import '../config/custom_app_route.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
